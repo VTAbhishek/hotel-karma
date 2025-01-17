@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Karma Dashboard</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F5F5F5;
+        }
+
+        /* Dashboard Layout */
+        .dashboard {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #4d4d67;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .sidebar img {
+            width: 80px;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+        }
+
+        .sidebar h1 {
+            font-size: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar ul li {
+            margin: 15px 0;
+        }
+
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .sidebar ul li a:hover, .sidebar ul li a.active {
+            background-color: #757083;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: white;
+            padding: 15px 20px;
+        }
+
+        .header h2 {
+            font-size: 22px;
+        }
+
+        .header .icons img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-left: 10px;
+        }
+
+        /* Cards Section */
+        .cards {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 10px;
+        }
+
+        .card {
+            flex: 1;
+            background-color: #f7f7f7;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px;
+            text-align: center;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h3 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .card .number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #008080;
+        }
+
+        /* Content Section */
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        .content .chart, .content .shortage-items {
+            flex: 1;
+            margin: 10px;
+            background-color: #f7f7f7;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart h3, .shortage-items h3 {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        /* Pie Chart Container */
+        #pie-chart-container {
+            height: 300px;
+        }
+
+        /* Shortage Items List */
+        .shortage-items ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .shortage-items ul li {
+            padding: 8px 0;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <img src="E:\Xgenic\Image\hotel logo.png" alt="Hotel Logo">
+          
+            <ul>
+                <li><b><a href="#" class="active">Dashboard</a></b></li>
+                <li><b><a href="#">Add Items</a></b></li>
+                <li><b><a href="#">Add Products</a></b></li>
+                <li><b><a href="#">Add User</a></b></li>
+                <li><b><a href="#">Add Product</a></b></li>
+            </ul>
+        </div>
+        
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <h2>Hotel Karma</h2>
+                <div class="button">
+                    <img src="E:\Xgenic\Image\bell.png" alt="User Icon" width="20" height="20">
+                </div>
+            </div>
+
+            <!-- Cards Section -->
+            <div class="cards">
+                <div class="card">
+                    <h3>Total Orders</h3>
+                    <div class="number">415</div>
+                </div>
+                <div class="card">
+                    <h3>Total Sales</h3>
+                    <div class="number">Rs.56K</div>
+                </div>
+                <div class="card">
+                    <h3>Shortage Items</h3>
+                    <div class="number">03</div>
+                </div>
+                <div class="card">
+                    <h3>Uncompleted Orders</h3>
+                    <div class="number" style="color: rgb(255, 188, 2);">18</div> 
+                </div>
+                <div class="card">
+                    <h3>Canceled Orders</h3>
+                    <div class="number" style="color: red;">08</div> 
+                </div>
+            </div>
+
+            <!-- Content Section -->
+            <div class="content">
+                <div class="chart">
+                    <h2>Items in Store</h2>
+                    <div id="pie-chart-container"></div>
+                </div>
+                <div class="shortage-items">
+                    <h2>Shortage Items</h2>
+                    <ul>
+                        <li>Item Name</li>
+                        <li>Item Name</li>
+                        <li>Item Name</li>
+                        <li>Item Name</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Highcharts 3D Pie Chart
+        Highcharts.chart('pie-chart-container', {
+            chart: {
+                type: 'pie',
+                options3d: {
+                    enabled: true,
+                    alpha: 45,
+                    beta: 0
+                }
+            },
+            title: {
+                text: null
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    depth: 35,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.name}'
+                    }
+                }
+            },
+            series: [{
+                name: 'Items',
+                data: [
+                    { name: 'Item 1', y: 30 },
+                    { name: 'Item 2', y: 20 },
+                    { name: 'Item 3', y: 25 },
+                    { name: 'Item 4', y: 25 }
+                ]
+            }]
+        });
+    </script>
+</body>
+</html>
